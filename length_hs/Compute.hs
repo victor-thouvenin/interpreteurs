@@ -75,5 +75,5 @@ compute [] = return 0
 compute str = do
     res <- execute (map length $ lines str) 0 []
     case res of
-        Left e -> hPutStrLn stderr (show e) >> return 84
+        Left e -> hPutStrLn stderr (show e) >> return 1
         Right _ -> return 0

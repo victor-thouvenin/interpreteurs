@@ -61,7 +61,7 @@ execute ('+':str) tab ind = execute str (inc tab ind) ind
 execute ('-':str) tab ind = execute str (dec tab ind) ind
 execute ('<':_) _ 0 = return $ Left "error: index cannot be lower than 0"
 execute ('<':str) tab ind = execute str tab (ind-1)
-execute ('>':_) _ 30000 = return $ Left "error: index cannot be greater than 30000"
+execute ('>':_) _ 29999 = return $ Left "error: index must be lower than 30000"
 execute ('>':str) tab ind = execute str tab (ind+1)
 execute (',':str) tab ind = do
     input <- getInput tab ind
@@ -78,7 +78,7 @@ execute ('[':str) tab ind = let mb = findMatching str 0
 execute (_:str) tab ind = execute str tab ind
 
 fillTab :: Int -> [Int]
-fillTab 30000 = [0]
+fillTab 30000 = []
 fillTab len = 0:(fillTab (len+1))
 
 compute :: String -> IO Int
@@ -87,6 +87,6 @@ compute str = case checkBracket str 0 of
     0 -> do
         res <- execute str (fillTab 0) 0
         case res of
-            Left e -> hPutStrLn stderr (show e) >> return 84
+            Left e -> hPutStrLn stderr (show e) >> return 1
             Right _ -> return 0
-    _ -> hPutStrLn stderr "error: mismatch bracket" >> return 84
+    _ -> hPutStrLn stderr "error: mismatch bracket" >> return 1

@@ -11,10 +11,9 @@ readArg arg = do
         Right f -> return f
 
 readArgs :: [String] -> IO Int
-readArgs [] = hPutStrLn stderr "input file missing" >> return 84
-readArgs [arg] = do
+readArgs [] = hPutStrLn stderr "input file missing" >> return 1
+readArgs (arg:_) = do
         file <- try(readArg arg)::IO(Either SomeException String)
         case file of
-            Left e -> hPutStrLn stderr (show e) >> return 84
+            Left e -> hPutStrLn stderr (show e) >> return 1
             Right f -> compute f
-readArgs _ = hPutStrLn stderr "too many input" >> return 84

@@ -7,11 +7,11 @@
 
 SRC	=	Read.hs	\
 		Compute.hs	\
-		interpreteursLength.hs	\
+		bf.hs	\
 
 CC	=	ghc
 
-NAME	=	interpreteursLength
+NAME	=	bf
 
 FLAGS	+=	-Wall
 
